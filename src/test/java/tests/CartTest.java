@@ -13,7 +13,7 @@ public class CartTest extends BaseTest {
         LoginPage loginPage = new LoginPage(getDriver());
         InventoryPage inventoryPage = loginPage.login("standard_user", "secret_sauce");
         inventoryPage.addFirstItemToCart();
-        Assert.assertTrue(false, "Intentional failure for CI verification");
+        Assert.assertEquals(inventoryPage.getCartItemCount(), 1, "Cart badge should show 1 item");
     }
 
     @Test(groups = {"regression"}, description = "Open cart after adding first item")

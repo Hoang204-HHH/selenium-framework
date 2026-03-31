@@ -11,6 +11,11 @@ jobs:
   run-tests:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+      fail-fast: false
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -22,14 +27,14 @@ jobs:
           distribution: 'temurin'
           cache: maven
 
-      - name: Run Selenium Tests
-        run: mvn clean test "-Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml" -Dbrowser=chrome -Denv=dev
+      - name: Run Selenium Tests (${{ matrix.browser }})
+        run: mvn clean test "-Dsurefire.suiteXmlFiles=src/test/resources/testng-smoke.xml" -Dbrowser=${{ matrix.browser }} -Denv=dev
 
       - name: Upload test results
-        if: failure()
+        if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-results
+          name: test-results-${{ matrix.browser }}
           path: |
             target/surefire-reports/
             target/screenshots/
