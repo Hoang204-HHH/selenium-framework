@@ -45,4 +45,20 @@ public class ConfigReader {
     public String getScreenshotPath() {
         return props.getProperty("screenshot.path", "target/screenshots/");
     }
+
+    public String getUsername() {
+        String username = System.getenv("APP_USERNAME");
+        if (username == null || username.isBlank()) {
+            username = props.getProperty("app.username", "standard_user");
+        }
+        return username;
+    }
+
+    public String getPassword() {
+        String password = System.getenv("APP_PASSWORD");
+        if (password == null || password.isBlank()) {
+            password = props.getProperty("app.password", "secret_sauce");
+        }
+        return password;
+    }
 }
