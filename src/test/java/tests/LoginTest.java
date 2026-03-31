@@ -18,6 +18,6 @@ public class LoginTest extends BaseTest {
     public void testLockedUserLogin() {
         LoginPage loginPage = new LoginPage(getDriver());
         loginPage.loginExpectingFailure("locked_out_user", "secret_sauce");
-        Assert.assertTrue(loginPage.isErrorDisplayed(), "Error message should be displayed");
+        Assert.assertTrue(false, "Intentional failure for CI verification");
     }
 }
